@@ -1,0 +1,190 @@
+body {
+  background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
+  background-attachment: fixed;
+}
+
+/* Стили для выделенного текста (например, лидеров) */
+.lead {
+  font-size: 1.5rem; /* Размер шрифта */
+  font-weight: 300; /* Толщина шрифта */
+  background: linear-gradient(
+    to right,
+    #000000 0%,
+    #000000 50%,
+    #999999 100%
+  ); /* Градиентный текст */
+  -webkit-background-clip: text; /* Вырезаем текст по градиенту */
+  -webkit-text-fill-color: transparent; /* Прозрачный текст с фоном */
+}
+
+/* Центрирование контейнера */
+.container {
+  margin: 20px auto;
+  max-width: 960px; /* Максимальная ширина контейнера */
+}
+
+/* Градиентный текст для заголовков */
+h1 {
+  background: linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Стиль прогресса выполнения правил пароля */
+.password-rules__meter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* Промежуток между элементами */
+  max-inline-size: 10rem; /* Максимальная ширина */
+}
+
+/* Базовые стили для каждого блока прогресса */
+.password-rules__meter > :where(span) {
+  width: 100%;
+  height: 0.25em; /* Высота блока */
+  background-color: lightgray; /* Светлый фон для неактивных частей */
+  border-radius: 360px; /* Полное закругление углов */
+  transition: background-color 100ms ease-out; /* Плавный переход цвета */
+}
+
+/* Изменение цвета прогресса в зависимости от количества соблюденных правил */
+password-rules[data-score="1"] .password-rules__meter :first-child,
+password-rules[data-score="2"] .password-rules__meter :nth-child(-n + 2),
+password-rules[data-score="3"] .password-rules__meter :nth-child(-n + 3),
+password-rules[data-score="4"] .password-rules__meter :nth-child(-n + 4) {
+  background-color: dodgerblue; /* Синий цвет для прогресса */
+}
+
+password-rules[data-score="5"] .password-rules__meter :nth-child(-n + 5) {
+  background-color: mediumseagreen; /* Зеленый цвет для завершения прогресса */
+}
+
+/* Отображение текущего количества выполненных правил */
+.password-rules__score::before {
+  display: block;
+  counter-reset: score var(--score, 0) total var(--total, 5);
+  content: counter(score) "/" counter(total); /* Выводим счетчик в формате "X/Y" */
+  font-feature-settings: "tnum"; /* Используем моноширинные цифры */
+  font-size: 0.8em; /* Уменьшенный шрифт */
+}
+
+/* Список правил проверки пароля */
+.password-rules__checklist {
+  --flow: 0.3rem; /* Расстояние между элементами списка */
+  padding-inline-start: 1.2em; /* Отступ слева для списка */
+}
+
+/* Стили для каждого элемента списка правил */
+.password-rules__checklist li {
+  position: relative;
+  list-style-type: circle; /* Тип маркера списка */
+}
+
+/* Стили для выполненных правил (галочка) */
+.password-rules__checklist .is-match::before {
+  content: "✅"; /* Галочка для выполненных правил */
+  position: absolute;
+  top: 0;
+  right: calc(100% + 0.25em); /* Позиционирование галочки */
+  font-size: 0.9em; /* Уменьшенный размер галочки */
+}
+
+/* Обертка для поля ввода пароля и кнопки показа/скрытия */
+.password-input-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Сетка: поле ввода и кнопка */
+  gap: 0.5rem; /* Расстояние между полем и кнопкой */
+}
+
+/* Стили для кнопки показа/скрытия пароля */
+.password-input-wrapper button {
+  display: grid;
+  place-items: center; /* Центрирование содержимого кнопки */
+}
+
+/* Скрываем вторую иконку (закрытого глаза) по умолчанию */
+.password-input-wrapper button svg:last-of-type {
+  display: none;
+}
+
+/* Когда кнопка нажата, показываем другую иконку */
+.password-input-wrapper button[aria-pressed="true"] {
+  svg:first-of-type {
+    display: none; /* Скрываем первую иконку */
+  }
+  svg:last-of-type {
+    display: block; /* Показываем вторую иконку */
+  }
+}
+
+/* Стиль для формы */
+form {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 75px 100px;
+  width: min(30rem, 100% - 1rem); /* Ширина формы */
+  margin-inline: auto; /* Центрируем форму */
+  margin-block: 4rem; /* Отступ сверху и снизу */
+}
+
+/* Базовые стили для полей ввода */
+input {
+  box-sizing: border-box;
+  padding-inline: 0.5rem; /* Внутренние отступы */
+  width: 100%; /* Ширина 100% */
+  border: 1px solid lightgray; /* Серая рамка */
+  border-radius: 0.25rem; /* Закругленные углы */
+  box-shadow: 0 2px 6px -4px rgba(0 0 0 / 0.2); /* Тень */
+}
+
+/* Стили для кнопок */
+button {
+  all: unset;
+  outline: revert; /* Отображаем обводку при фокусе */
+  padding-inline: 1rem; /* Внутренние отступы по горизонтали */
+  background: linear-gradient(white, whitesmoke); /* Фон кнопки */
+}
+
+/* Анимация нажатия на кнопку */
+button:active {
+  translate: 0 1px; /* Смещение при нажатии */
+  box-shadow: none; /* Убираем тень при нажатии */
+}
+
+/* Универсальный стиль для полей ввода и кнопок */
+:is(input, button) {
+  font: inherit; /* Наследуем шрифт */
+  padding-block: 0.5rem; /* Внутренние отступы по вертикали */
+  border: 1px solid lightgray; /* Серая рамка */
+  border-radius: 0.25rem; /* Закругленные углы */
+  box-shadow: 0 2px 6px -4px rgba(0 0 0 / 0.2); /* Тень */
+}
+
+/* Утилита для отступов между элементами */
+.flow > * + * {
+  margin-block-start: var(--flow, 1rem); /* Отступ сверху */
+}
+
+/* Скрываем элементы визуально, но оставляем их доступными для экранных читалок */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* Обертка для полей ввода с метками */
+.input-wrapper {
+  display: grid;
+  gap: 0.4rem; /* Расстояние между меткой и полем ввода */
+}
+
+/* Стили для меток */
+.input-wrapper label {
+  justify-self: start; /* Выравнивание метки по левому краю */
+}
